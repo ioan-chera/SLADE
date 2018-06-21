@@ -136,7 +136,21 @@
 #endif
 
 // Freeimage
+
+// Mark here that _WINDOWS_ wasn't actually defined by someone else
+#ifndef _WINDOWS_
+#define WINDOWS_MARKED_NOT_DEFINED
+#endif
+
 #include <FreeImage.h>
+
+#if !defined(_WIN32) && defined(_WINDOWS_) && defined(WINDOWS_MARKED_NOT_DEFINED)
+#undef _WINDOWS_	// undefine this because it will conflict with wxWidgets
+#endif
+
+#ifdef WINDOWS_MARKED_NOT_DEFINED
+#undef WINDOWS_MARKED_NOT_DEFINED
+#endif
 
 // C++
 #include <map>
