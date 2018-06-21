@@ -127,7 +127,7 @@ bool Lexer::doStyling(TextEditorCtrl* editor, int start, int end)
 		editor
 	};
 
-	editor->StartStyling(start, 31);
+	editor->StartStyling(start, START_STYLING_SECOND_ARG);
 	if (debug_lexer)
 		Log::debug(S_FMT("START STYLING FROM %d TO %d (LINE %d)", start, end, line + 1));
 

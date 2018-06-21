@@ -204,6 +204,13 @@ struct Debuggable {
 #define LOG_DEBUG_VAR(name)
 #endif  // DEBUG
 
+// Fix for wxStyledTextCtrl::StartStyling to work on both wxWidgets 3.0 and 3.1
+#if wxMAJOR_VERSION > 3 || (wxMAJOR_VERSION == 3 && wxMINOR_VERSION >= 1)
+static const int START_STYLING_SECOND_ARG = 0;	// 3.1
+#else
+static const int START_STYLING_SECOND_ARG = 31;	// 3.0
+#endif
+
 #endif // __MAIN_H__
 
 #endif /* __cplusplus */
