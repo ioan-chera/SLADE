@@ -36,6 +36,19 @@
 #include "SToolBar/SToolBar.h"
 #include "General/SAction.h"
 
+// ----------------------------------------------------------------------------
+//
+// Constants
+//
+// ----------------------------------------------------------------------------
+
+enum
+{
+	// Add this number to the first wxID of the View/Toolbar menu, to have
+	// -1 + 2 = 1, because if it were 1, it would result in 0, which is not
+	// allowed for wxID.
+	TOOLBAR_MENU_ITEM_ID_BASE = 2
+};
 
 // ----------------------------------------------------------------------------
 //
@@ -218,7 +231,7 @@ void STopWindow::populateToolbarsMenu() const
 		string name = group->name();
 		name.Replace("_", "");
 
-		action_toolbar_menu_->addToMenu(toolbar_menu_, name, "NO", a+1);
+		action_toolbar_menu_->addToMenu(toolbar_menu_, name, "NO", a+TOOLBAR_MENU_ITEM_ID_BASE);
 		toolbar_menu_->GetMenuItems()[toolbar_menu_->GetMenuItemCount() - 1]->Check(!group->hidden());
 	}
 }
@@ -240,7 +253,7 @@ void STopWindow::onMenu(wxCommandEvent& e)
 {
 	if (action_toolbar_menu_->isWxId(e.GetId()))
 	{
-		int offset = e.GetId() - action_toolbar_menu_->getWxId() - 1;
+		int offset = e.GetId() - action_toolbar_menu_->getWxId() - TOOLBAR_MENU_ITEM_ID_BASE;
 		auto group = toolbar_->groups()[offset];
 
 		group->hide(!group->hidden());
